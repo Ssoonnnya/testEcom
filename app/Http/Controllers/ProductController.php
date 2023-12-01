@@ -19,7 +19,8 @@ class ProductController extends Controller
 
         return inertia('Create');
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $validated = Validator::make($request->all(), [
             'brand' => 'required|string',
@@ -43,7 +44,19 @@ class ProductController extends Controller
             'price' => $request->get('price')
         ]);
 
-        return redirect()->route('product.list');
+        return redirect()->route('product.list')->with('message', 'You created new product!');
+    }
 
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return redirect()->route('product.list')->with('error', 'Product not found.');
+        }
+
+        $product->delete();
+
+        return redirect()->route('product.list')->with('message', 'You deleted the product.');
     }
 }

@@ -1,11 +1,13 @@
 <script>
 import { Link } from '@inertiajs/vue3';
-
 export default {
+
     props: {
         product: Object
     },
-    components: { Link}
+    components: { Link},
+
+
 }
 </script>
 
@@ -26,7 +28,9 @@ export default {
                 <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500">WEIGHT</span></th>
                 <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500">AMOUNT</span></th>
                 <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500">PRICE</span></th>
+                <th>
 
+                </th>
             </thead>
             <tbody>
                 <tr v-for="products in product" :key="products.id">
@@ -56,6 +60,9 @@ export default {
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                         {{ products.price }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                        <Link :href="route('product.delete', { id: products.id })" class="text-red-600">Delete</Link>
                     </td>
                 </tr>
             </tbody>
