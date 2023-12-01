@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Validator;
+
 
 class ProductController extends Controller
 {
@@ -18,6 +20,17 @@ class ProductController extends Controller
         return inertia('Create');
     }
     public function store(Request $request){
+
+        $validated = Validator::make($request->all(), [
+            'brand' => 'required|string',
+            'producer' => 'required|string',
+            'type' => 'required|string',
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'weight' => 'required|decimal:2',
+            'amount' => 'required|integer',
+            'price' => 'required|decimal:2',
+        ]);
 
         Product::create([
             'brand' => $request->get('brand'),
