@@ -1,20 +1,19 @@
 <script>
 import { Link } from '@inertiajs/vue3';
 
-
 export default {
     props: {
         product: Object
     },
-    components: { Link }
+    components: { Link}
 }
 </script>
 
 <template>
 
     <div class="tabe-products mt-6 ">
-        <Link :href="route('product.list')">Products</Link>
-        <Link :href="route('create.product')" class="ml-2">Create</Link>
+        <Link :href="route('product.list')" :class="{'font-bold': $page.component === 'Index'}">Products</Link>
+        <Link :href="route('create.product')" :class="{'font-bold': $page.component === 'Create'}">Create</Link>
 
          <table class="table table-hover table-striped mt-4">
             <thead>

@@ -13,4 +13,8 @@ class ProductController extends Controller
 
         return inertia('Index', compact('product'));
     }
+    public function create(){
+
+        return inertia('Create');
+    }
 }

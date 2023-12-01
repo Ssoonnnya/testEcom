@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('products', [ProductController::class, 'index'])->name('product.list');
-Route::inertia('create', 'Create')->name('create.product');
+Route::get('create', [ProductController::class, 'create'])->name('create.product');
+
+// Route::inertia('create', 'Create')->name('create.product');
 
 require __DIR__.'/auth.php';
