@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
 
 Route::get('products', [ProductController::class, 'index'])->name('product.list');
 Route::get('create', [ProductController::class, 'create'])->name('create.product');
+Route::post('create', [ProductController::class, 'store'])->name('store.product');
+
 
 // Route::inertia('create', 'Create')->name('create.product');
 

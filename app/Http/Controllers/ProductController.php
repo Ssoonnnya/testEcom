@@ -17,4 +17,20 @@ class ProductController extends Controller
 
         return inertia('Create');
     }
+    public function store(Request $request){
+
+        Product::create([
+            'brand' => $request->get('brand'),
+            'producer' => $request->get('producer'),
+            'type' => $request->get('type'),
+            'title' => $request->get('title'),
+            'description' => $request->get('description'),
+            'weight' => $request->get('weight'),
+            'amount' => $request->get('amount'),
+            'price' => $request->get('price')
+        ]);
+
+        return redirect()->route('product.list');
+
+    }
 }

@@ -1,23 +1,33 @@
-<script setup>
-import { reactive } from 'vue'
-import { router } from '@inertiajs/vue3'
+<script>
+import { router, useForm } from '@inertiajs/vue3'
 
 import { Link } from '@inertiajs/vue3';
 
-const form = reactive({
-  brand: '',
-  producer: '',
-  type: '',
-  title: '',
-  description: '',
-  weight: '',
-  amount: '',
-  price: '',
+export default {
+    components: {
+        Link
+    },
+    setup() {
 
- })
+    const form = useForm({
+    brand: '',
+    producer: '',
+    type: '',
+    title: '',
+    description: '',
+    weight: '',
+    amount: '',
+    price: '',
+
+    })
+
+    return { form }
+    }
+}
+
 
 function submit() {
-  router.post('/users', form)
+  router.post('/create', form)
 }
 
 </script>
@@ -28,7 +38,7 @@ function submit() {
         <Link :href="route('create.product')" :class="{'font-bold': $page.component === 'Create'}">Create</Link>
     </div>
     <div>
-        <form @submit.prevent="submit">
+        <form @submit.prevent="form.post(route('store.product'))">
             <label for="brand">Brand:</label>
             <input id="brand" v-model="form.brand" />
 
