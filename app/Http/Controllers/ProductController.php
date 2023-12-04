@@ -59,4 +59,40 @@ class ProductController extends Controller
 
         return redirect()->route('product.list')->with('message', 'You deleted the product.');
     }
+
+
+    public function edit($id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return redirect()->route('product.list')->with('error', 'Product not found.');
+        }
+
+        return inertia('Edit', ['product' => $product]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'brand' => 'required|string',
+            'producer' => 'required|string',
+            'type' => 'required|string',
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'weight' => 'required|decimal:2',
+            'amount' => 'required|integer',
+            'price' => 'required|decimal:2',
+        ]);
+
+        $product = Product::find($id);
+
+        if (!$product) {
+            return redirect()->route('product.list')->with('error', 'Product not found.');
+        }
+
+        $product->update($validated);
+
+        return redirect()->route('product.list')->with('message', 'Product updated successfully.');
+    }
 }

@@ -64,6 +64,9 @@ export default {
                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                         <Link :href="route('product.delete', { id: products.id })" class="text-red-600">Delete</Link>
                     </td>
+                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                        <Link :href="route('product.edit', { id: products.id })" class="text-blue-600">Edit</Link>
+                    </td>
                 </tr>
             </tbody>
         </table>
