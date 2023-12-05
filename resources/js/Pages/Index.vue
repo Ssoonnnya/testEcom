@@ -17,10 +17,18 @@ export default {
 
 <template>
 
-    <div class="tabe-products mt-6 ">
+    <div class="tabe-products mt-8 ml-5">
         <Link :href="route('product.list')" :class="{'font-bold': $page.component === 'Index'}">Products</Link>
+    </div>
+    <div class="tabe-products mt-2 ml-5">
         <Link :href="route('create.product')" :class="{'font-bold': $page.component === 'Create'}">Create</Link>
-
+    </div>
+        <div id="table" class="ml-5">
+            <div>
+                <h1 class="flex justify-center items-center font-bold text-gray-500 text-xl uppercase">
+                    Here all our products!
+                </h1>
+            </div>
          <table class="table table-hover table-striped mt-4">
             <thead>
                 <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500">ID</span></th>
@@ -33,12 +41,15 @@ export default {
                 <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500">WEIGHT</span></th>
                 <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500">AMOUNT</span></th>
                 <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500">PRICE</span></th>
+                <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500"></span></th>
+                <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500"></span></th>
+
                 <th>
 
                 </th>
             </thead>
             <tbody>
-                <tr v-for="products in product" :key="products.id">
+                <tr v-for="products in product" :key="products.id" class="border-b dark:border-neutral-200">
                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                         {{ products.id }}
                     </td>

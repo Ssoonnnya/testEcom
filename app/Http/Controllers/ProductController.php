@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        $validated = Validator::make($request->all(), [
+        $validated = $request->validate([
             'brand' => 'required|string',
             'producer' => 'required|string',
             'type' => 'required|string',
@@ -31,7 +31,7 @@ class ProductController extends Controller
             'weight' => 'required|decimal:2',
             'amount' => 'required|integer',
             'price' => 'required|decimal:2',
-            'file' => 'required|image:jpg, jpeg, png',
+            'file' => 'required|image:jpg, jpeg, png'
         ]);
 
 
@@ -91,7 +91,6 @@ class ProductController extends Controller
             'weight' => 'required|decimal:2',
             'amount' => 'required|integer',
             'price' => 'required|decimal:2',
-            'file' => 'required|image:jpg, jpeg, png'
         ]);
 
         $product = Product::find($id);

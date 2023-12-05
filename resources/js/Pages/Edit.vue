@@ -41,74 +41,100 @@ export default {
 </script>
 
 <template>
-    <div class="text-xl uppercase">You are on edit page!</div>
-    <div class="tabe-products mt-16 ">
+     <div class="tabe-products mt-8 ml-3">
         <Link :href="route('product.list')" :class="{'font-bold': $page.component === 'Index'}">Products</Link>
+    </div>
+    <div class="tabe-products mt-2 ml-3">
         <Link :href="route('create.product')" :class="{'font-bold': $page.component === 'Create'}">Create</Link>
     </div>
-    <div>
-        <form @submit.prevent="form.post(route('product.update', {id: form.id }))">
+    <div class="flex justify-center items-center h-screen">
+        <form @submit.prevent="form.post(route('product.update', {id: form.id }))" class="mt-6 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
             <div>
                 <input id="id" type="hidden" v-model="form.id" />
             </div>
-            <div class="mt-4">
-                <label for="brand">Brand:</label>
-                <input id="brand" v-model="form.brand" />
+            <div>
+                <h1 class="flex justify-center items-center font-bold text-gray-500 uppercase">
+                    Edit your product!
+                </h1>
+            </div>
+            <div class="form-group row ml-3">
+                <div class="col-md-6 mt-2">
+                    <input id="brand" v-model="form.brand" placeholder="Brand" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                </div>
                 <div v-if="errors.brand" class="text-red-600">
                     {{ errors.title }}
                 </div>
             </div>
-            <div class="mt-4">
-                <label for="producer">Producer:</label>
-                <input id="producer" v-model="form.producer" />
+            <div class="form-group row ml-3">
+                <div class="col-md-6 mt-2">
+                    <input id="producer" v-model="form.producer" placeholder="Producer" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+                </div>
                 <div v-if="errors.producer" class="text-red-600">
                     {{ errors.producer }}
                 </div>
             </div>
-            <div class="mt-4">
-                <label for="type">Type:</label>
-                <input id="type" v-model="form.type" />
+            <div class="form-group row ml-3">
+                <div class="col-md-6 mt-2">
+                    <input id="type" v-model="form.type" placeholder="Type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+                </div>
                 <div v-if="errors.type" class="text-red-600">
                     {{ errors.type }}
                 </div>
             </div>
-            <div class="mt-4">
-                <label for="title">Title:</label>
-                <input id="title" v-model="form.title" />
+            <div class="form-group row ml-3">
+                <div class="col-md-6 mt-2">
+                    <input id="title" v-model="form.title"  placeholder="Title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+                </div>
                 <div v-if="errors.title" class="text-red-600">
                     {{ errors.title }}
                 </div>
             </div>
-            <div class="mt-4">
-                <label for="description">Description:</label>
-                <input id="description" v-model="form.description" />
+            <div class="form-group row ml-3">
+                <div class="col-md-6 mt-2">
+                    <input id="description" v-model="form.description" placeholder="Description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+                </div>
                 <div v-if="errors.description" class="text-red-600">
                     {{ errors.description }}
                 </div>
             </div>
-            <div class="mt-4">
-                <label for="weight">Weight:</label>
-                <input id="weight" v-model="form.weight" />
+            <div class="form-group row ml-3">
+                <div class="col-md-6 mt-2">
+                    <input id="weight" v-model="form.weight" placeholder="Weight" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+                </div>
                 <div v-if="errors.weight" class="text-red-600">
                     {{ errors.weight }}
                 </div>
             </div>
-            <div class="mt-4">
-                <label for="amount">Amount:</label>
-                <input id="amount" v-model="form.amount" />
+            <div class="form-group row ml-3">
+                <div class="col-md-6 mt-2">
+                    <input id="amount" v-model="form.amount" placeholder="Amount" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+                </div>
                 <div v-if="errors.amount" class="text-red-600">
                     {{ errors.amount }}
                 </div>
             </div>
-            <div class="mt-4">
-                <label for="price">Price:</label>
-                <input id="price" v-model="form.price" />
+            <div class="form-group row ml-3">
+                <div class="col-md-6 mt-2">
+                    <input id="price" v-model="form.price" placeholder="Price" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+                </div>
                 <div v-if="errors.price" class="text-red-600">
                     {{ errors.price }}
                 </div>
             </div>
-            <button type="submit">SUBMIT</button>
+
+            <div class="form-group row ml-3">
+                <label class="col-md-4 col-form-label text-md-right">Image:</label>
+                <div class="col-md-6">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile"
+                            name="file" ref="file" @change="handleFileObject()">
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 ml-4 flex items-center justify-between">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">submit</button>
+            </div>
         </form>
     </div>
 </template>
