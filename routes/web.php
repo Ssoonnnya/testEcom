@@ -44,7 +44,6 @@ Route::post('products/edit/{id}', [ProductController::class, 'update'])->name('p
 
 Route::get('create', [ProductController::class, 'create'])->name('create.product');
 Route::post('create', [ProductController::class, 'store'])->name('store.product');
-Route::inertia('test', 'Test');
 
 
 require __DIR__.'/auth.php';
