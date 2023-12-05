@@ -31,9 +31,16 @@ class ProductController extends Controller
             'weight' => 'required|decimal:2',
             'amount' => 'required|integer',
             'price' => 'required|decimal:2',
+            'file' => 'required|image:jpg, jpeg, png',
         ]);
 
-        Product::create([
+
+        $file = $request->file('file');
+        $name = '/avatars/' . uniqid() . '.' . $file->extension();
+        $file->storePubliclyAs('public', $name);
+        $fileData['file'] = $name;
+
+        $productCreate = Product::create([
             'brand' => $request->get('brand'),
             'producer' => $request->get('producer'),
             'type' => $request->get('type'),
@@ -41,7 +48,8 @@ class ProductController extends Controller
             'description' => $request->get('description'),
             'weight' => $request->get('weight'),
             'amount' => $request->get('amount'),
-            'price' => $request->get('price')
+            'price' => $request->get('price'),
+            'file' => $name,
         ]);
 
         return redirect()->route('product.list')->with('message', 'You created new product!');
@@ -83,6 +91,7 @@ class ProductController extends Controller
             'weight' => 'required|decimal:2',
             'amount' => 'required|integer',
             'price' => 'required|decimal:2',
+            'file' => 'required|image:jpg, jpeg, png'
         ]);
 
         $product = Product::find($id);

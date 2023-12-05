@@ -17,7 +17,8 @@ class Product extends Model
         'description',
         'weight',
         'amount',
-        'price'
+        'price',
+        'file'
     ];
     protected $table = 'products';
 }

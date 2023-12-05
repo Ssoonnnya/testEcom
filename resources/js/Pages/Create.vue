@@ -1,7 +1,7 @@
 <script>
 import { router, useForm } from '@inertiajs/vue3'
-
 import { Link } from '@inertiajs/vue3';
+import axios from 'axios'
 
 export default {
     components: {
@@ -12,29 +12,57 @@ export default {
     },
 
     setup() {
+        const form = useForm({
+            brand: '',
+            producer: '',
+            type: '',
+            title: '',
+            description: '',
+            weight: '',
+            amount: '',
+            price: '',
+            file: '',
+        })
 
-    const form = useForm({
-    brand: '',
-    producer: '',
-    type: '',
-    title: '',
-    description: '',
-    weight: '',
-    amount: '',
-    price: '',
+        return { form }
+    },
+    methods: {
+    submit() {
+        this.errors = null;
 
-    })
+        let formData = new FormData();
+        formData.append('file', this.form.file);
 
-    return { form }
+        _.each(this.form, (value, key) => {
+            formData.append(key, value);
+        });
+
+        axios.post('/create', formData, {
+            headers: {
+                'Content-Type': "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)
+            }
+        }).then(response => {
+            this.showForm = false;
+            this.user = response.data.data;
+        }).catch(err => {
+            if (err.response.status === 422) {
+                this.errors = [];
+                _.each(err.response.data.errors, error => {
+                    _.each(error, e => {
+                        this.errors.push(e);
+                    });
+                });
+            }
+        });
+    },
+    handleFileObject() {
+        this.form.file = this.$refs.file.files[0];
     }
 }
 
-
-function submit() {
-  router.post('/create', form)
 }
-
 </script>
+
 
 <template>
     <div class="tabe-products mt-16 ">
@@ -42,7 +70,7 @@ function submit() {
         <Link :href="route('create.product')" :class="{'font-bold': $page.component === 'Create'}">Create</Link>
     </div>
     <div>
-        <form @submit.prevent="form.post(route('store.product'))">
+        <form @submit.prevent="form.post(route('store.product'))" enctype="multipart/form-data">
             <div class="mt-4">
                 <label for="brand">Brand:</label>
                 <input id="brand" v-model="form.brand" />
@@ -99,6 +127,17 @@ function submit() {
                     {{ errors.price }}
                 </div>
             </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-md-right">Image:</label>
+                <div class="col-md-6">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile"
+                       name="file" ref="file" @change="handleFileObject()">
+                  </div>
+                </div>
+              </div>
+
             <button type="submit">SUBMIT</button>
         </form>
     </div>

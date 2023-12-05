@@ -7,7 +7,11 @@ export default {
     },
     components: { Link},
 
-
+    methods: {
+    getImageUrl(fileName) {
+        return fileName ? `/storage${fileName}` : '';
+    },
+  },
 }
 </script>
 
@@ -20,6 +24,7 @@ export default {
          <table class="table table-hover table-striped mt-4">
             <thead>
                 <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500">ID</span></th>
+                <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500">FILE</span></th>
                 <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500">BRAND</span></th>
                 <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500">PRODUCER</span></th>
                 <th class="px-6 py-3 bg-gray-50 text-left"><span class="text-s leading-4 font-medium text-gray-500">TYPE</span></th>
@@ -36,6 +41,9 @@ export default {
                 <tr v-for="products in product" :key="products.id">
                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                         {{ products.id }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                        <img :src="getImageUrl(products.file)" alt="Product Image" class="w-12 h-12 object-cover" />
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
                         {{ products.brand }}
